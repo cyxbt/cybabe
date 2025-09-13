@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBABE</title>
+
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at center, #1a1a1a, #000000);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* 🔹 Futuristic glowing border */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 8px solid transparent;
+      border-image: linear-gradient(90deg, #0ff, #f0f, #ff0, #0ff) 1;
+      filter: blur(6px) brightness(1.5);
+      animation: borderGlow 5s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+    @keyframes borderGlow {
+      0% { border-image-source: linear-gradient(90deg, #0ff, #f0f, #ff0, #0ff); }
+      50% { border-image-source: linear-gradient(270deg, #ff0, #0ff, #f0f, #ff0); }
+      100% { border-image-source: linear-gradient(90deg, #0ff, #f0f, #ff0, #0ff); }
+    }
+
+    /* 🔹 Futuristic Loader */
+    #loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      border: 10px solid rgba(0, 255, 255, 0.1);
+      border-top: 10px solid #0ff;
+      border-radius: 50%;
+      z-index: 10;
+      animation: spin 1.5s linear infinite, glowPulse 2s ease-in-out infinite;
+      box-shadow: 0 0 25px #0ff, 0 0 50px #f0f, 0 0 70px #ff0;
+    }
+    #loader::before {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 70px;
+      height: 70px;
+      border: 8px solid rgba(255, 0, 255, 0.2);
+      border-bottom: 8px solid #f0f;
+      border-radius: 50%;
+      animation: spinReverse 2.5s linear infinite;
+      box-shadow: 0 0 15px #f0f, 0 0 30px #ff0;
+    }
+    #loader::after {
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 40px;
+      height: 40px;
+      border: 6px solid rgba(255, 255, 0, 0.2);
+      border-top: 6px solid #ff0;
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+      box-shadow: 0 0 10px #ff0, 0 0 25px #0ff;
+    }
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    @keyframes spinReverse {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 20px #0ff, 0 0 40px #f0f, 0 0 60px #ff0; }
+      50% { box-shadow: 0 0 35px #ff0, 0 0 60px #0ff, 0 0 90px #f0f; }
+    }
+
+    /* 🔹 Coming soon */
+    #coming-soon {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3rem;
+      font-weight: bold;
+      color: silver;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+      white-space: nowrap;
+      opacity: 0;
+      z-index: 3;
+    }
+    .show-coming {
+      animation: revealText 2s steps(12) forwards,
+                 fadeHold 2s ease 2s forwards,
+                 splitFade 1s ease 4s forwards;
+    }
+    @keyframes revealText {
+      from { opacity: 1; clip-path: inset(0 100% 0 0); }
+      to { opacity: 1; clip-path: inset(0 0 0 0); }
+    }
+    @keyframes fadeHold { from { opacity: 1; } to { opacity: 1; } }
+    @keyframes splitFade {
+      0% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+      50% { opacity: 0.5; transform: translateX(-50%) scaleY(0.1); }
+      100% { opacity: 0; transform: translateX(-50%) scaleY(0); }
+    }
+
+    /* 🔹 CYBABE */
+    #cybabe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      font-weight: bold;
+      color: #0ff;
+      text-shadow: 0 0 20px #0ff, 0 0 40px #f0f, 0 0 60px #ff0;
+      opacity: 0;
+      z-index: 3;
+    }
+    .show-cybabe {
+      animation: cybabeFadeIn 2s ease forwards,
+                 cybabePulse 3s ease-in-out infinite 2s;
+    }
+    @keyframes cybabeFadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    @keyframes cybabePulse {
+      0%, 100% {
+        text-shadow: 0 0 20px #0ff, 0 0 40px #f0f, 0 0 60px #ff0;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        text-shadow: 0 0 35px #0ff, 0 0 70px #f0f, 0 0 100px #ff0;
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+    }
+
+    /* 🔹 Videos */
+    .container {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      justify-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      z-index: 1;
+    }
+    .side-videos {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+    }
+    video {
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+      max-width: 100%;
+      height: auto;
+    }
+    .main-video { width: 30vw; aspect-ratio: 3/4; }
+    .side-video { width: 12vw; aspect-ratio: 3/4; }
+
+    /* 🔹 Mobile */
+    @media (max-width: 768px) {
+      .side-videos { display: none; }
+      .container { grid-template-columns: 1fr; padding: 0; }
+      .main-video {
+        position: absolute;
+        inset: 0;
+        width: 90%;
+        height: 90%;
+        margin: auto;
+        object-fit: cover;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        z-index: 0;
+      }
+      #coming-soon { font-size: 2rem; }
+      #cybabe { font-size: 3rem; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="loader"></div>
+  <div id="coming-soon">Coming soon...</div>
+  <div id="cybabe">CYBABE</div>
+
+  <div class="container">
+    <div class="side-videos">
+      <video class="side-video" src="cybabe2.mp4" autoplay muted loop playsinline preload="auto"></video>
+      <video class="side-video" src="cybabe3.mp4" autoplay muted loop playsinline preload="auto"></video>
+    </div>
+    <video class="main-video" src="cybabe.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <div class="side-videos">
+      <video class="side-video" src="cybabe4.mp4" autoplay muted loop playsinline preload="auto"></video>
+      <video class="side-video" src="cybabe5.mp4" autoplay muted loop playsinline preload="auto"></video>
+    </div>
+  </div>
+
+  <script>
+    const videos = document.querySelectorAll("video");
+    let loadedCount = 0;
+
+    videos.forEach(video => {
+      video.addEventListener("loadeddata", () => {
+        loadedCount++;
+        if (loadedCount === videos.length) {
+          // Hide loader → Show "Coming soon..."
+          document.getElementById("loader").style.display = "none";
+          document.getElementById("coming-soon").classList.add("show-coming");
+
+          // After "Coming soon..." (~5s), show CYBABE
+          setTimeout(() => {
+            document.getElementById("coming-soon").style.display = "none";
+            document.getElementById("cybabe").classList.add("show-cybabe");
+          }, 5000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
